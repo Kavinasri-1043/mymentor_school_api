@@ -1,0 +1,162 @@
+import uuid
+from datetime import date
+
+from sqlalchemy import Date, Integer, String, Text, ForeignKey
+from sqlalchemy.dialects.postgresql import UUID, ARRAY
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from app.database.database import Base
+from app.models.base import UUIDPrimaryKeyMixin, TimestampMixin
+
+
+class UserProfile(
+    UUIDPrimaryKeyMixin,
+    TimestampMixin,
+    Base,
+):
+    __tablename__ = "user_profiles"
+
+    # =========================================================
+    # USER
+    # =========================================================
+
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey(
+            "users.id",
+            ondelete="CASCADE",
+        ),
+        unique=True,
+        nullable=False,
+        index=True,
+    )
+
+    # =========================================================
+    # PROFILE PHOTO
+    # =========================================================
+
+    profile_photo_file_id: Mapped[
+        uuid.UUID | None
+    ] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey(
+            "files.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        index=True,
+    )
+
+    profile_photo = relationship(
+        "File",
+        foreign_keys=[profile_photo_file_id],
+        lazy="joined",
+    )
+
+    # =========================================================
+    # RESUME
+    # =========================================================
+
+    resume_file_id: Mapped[
+        uuid.UUID | None
+    ] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey(
+            "files.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        index=True,
+    )
+
+    resume_file = relationship(
+        "File",
+        foreign_keys=[resume_file_id],
+        lazy="joined",
+    )
+
+    # =========================================================
+    # BASIC PROFILE
+    # =========================================================
+
+    dob: Mapped[date | None] = mapped_column(
+        Date,
+        nullable=True,
+    )
+
+    age: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+    )
+
+    profile_category: Mapped[
+        str | None
+    ] = mapped_column(
+        String(100),
+        nullable=True,
+    )
+
+    education: Mapped[
+        str | None
+    ] = mapped_column(
+        Text,
+        nullable=True,
+    )
+
+    class_year: Mapped[
+        str | None
+    ] = mapped_column(
+        String(20),
+        nullable=True,
+    )
+
+    institution: Mapped[
+        str | None
+    ] = mapped_column(
+        Text,
+        nullable=True,
+    )
+
+    career_goal: Mapped[
+        str | None
+    ] = mapped_column(
+        Text,
+        nullable=True,
+    )
+
+    career_interests: Mapped[
+        str | None
+    ] = mapped_column(
+        Text,
+        nullable=True,
+    )
+
+    # =========================================================
+    # SKILLS
+    # =========================================================
+
+    skills: Mapped[list[str]] = mapped_column(
+        ARRAY(String),
+        nullable=False,
+        default=list,
+    )
+
+    # =========================================================
+    # WORK EXPERIENCES
+    # =========================================================
+
+    work_experiences = relationship(
+        "WorkExperience",
+        back_populates="profile",
+        cascade="all, delete-orphan",
+        lazy="selectin",
+    )
+
+    # =========================================================
+    # USER RELATIONSHIP
+    # =========================================================
+
+    user = relationship(
+        "User",
+        back_populates="profile",
+    )

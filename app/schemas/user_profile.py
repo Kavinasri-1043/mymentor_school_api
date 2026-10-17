@@ -1,0 +1,253 @@
+from datetime import date, datetime
+from uuid import UUID
+
+from pydantic import BaseModel, ConfigDict, Field
+
+
+# ============================================================
+# CREATE USER PROFILE
+# ============================================================
+
+class UserProfileCreate(BaseModel):
+
+    dob: date | None = None
+
+    age: int | None = Field(
+        default=None,
+        ge=0,
+        le=120,
+    )
+
+    profile_category: str | None = Field(
+        default=None,
+        max_length=50,
+    )
+
+    education: str | None = Field(
+        default=None,
+        max_length=255,
+    )
+
+    class_year: str | None = Field(
+        default=None,
+        max_length=50,
+    )
+
+    institution: str | None = Field(
+        default=None,
+        max_length=255,
+    )
+
+    career_goal: str | None = Field(
+        default=None,
+        max_length=255,
+    )
+
+    career_interests: str | None = None
+
+    # ========================================================
+    # PROFILE PHOTO
+    # ========================================================
+
+    profile_photo_file_id: UUID | None = None
+
+    # ========================================================
+    # RESUME
+    # ========================================================
+
+    resume_file_id: UUID | None = None
+
+
+# ============================================================
+# UPDATE USER PROFILE
+# ============================================================
+
+class UserProfileUpdate(BaseModel):
+
+    # ========================================================
+    # USER NAME
+    # ========================================================
+
+    # Google login:
+    # Name can already come from Google authentication.
+    #
+    # OTP login:
+    # User can enter/edit the name from the profile form.
+    #
+    # This field is ultimately saved to users.name.
+
+    name: str | None = Field(
+        default=None,
+        max_length=150,
+    )
+
+    # ========================================================
+    # BASIC PROFILE
+    # ========================================================
+
+    dob: date | None = None
+
+    age: int | None = Field(
+        default=None,
+        ge=0,
+        le=120,
+    )
+
+    profile_category: str | None = Field(
+        default=None,
+        max_length=50,
+    )
+
+    education: str | None = Field(
+        default=None,
+        max_length=255,
+    )
+
+    class_year: str | None = Field(
+        default=None,
+        max_length=50,
+    )
+
+    institution: str | None = Field(
+        default=None,
+        max_length=255,
+    )
+
+    career_goal: str | None = Field(
+        default=None,
+        max_length=255,
+    )
+
+    career_interests: str | None = None
+
+    # ========================================================
+    # PROFILE PHOTO
+    # ========================================================
+
+    profile_photo_file_id: UUID | None = None
+
+    # ========================================================
+    # RESUME
+    # ========================================================
+
+    resume_file_id: UUID | None = None
+
+
+# ============================================================
+# USER PROFILE RESPONSE
+# ============================================================
+
+class UserProfileResponse(BaseModel):
+
+    model_config = ConfigDict(
+        from_attributes=True
+    )
+
+    id: UUID
+
+    user_id: UUID
+
+    # Name comes from users.name
+    name: str | None = None
+
+    # ========================================================
+    # BASIC PROFILE
+    # ========================================================
+
+    dob: date | None
+
+    age: int | None
+
+    profile_category: str | None
+
+    education: str | None
+
+    class_year: str | None
+
+    institution: str | None
+
+    career_goal: str | None
+
+    career_interests: str | None
+
+    # ========================================================
+    # PROFILE PHOTO
+    # ========================================================
+
+    profile_photo_file_id: UUID | None = None
+
+    profile_photo_url: str | None = None
+
+    # ========================================================
+    # RESUME
+    # ========================================================
+
+    resume_file_id: UUID | None = None
+
+    resume_file_name: str | None = None
+
+    resume_url: str | None = None
+
+    # ========================================================
+    # TIMESTAMPS
+    # ========================================================
+
+    created_at: datetime
+
+    updated_at: datetime
+
+
+# ============================================================
+# PROFILE SUMMARY
+# ============================================================
+
+class ProfileSummaryResponse(BaseModel):
+
+    score: int
+
+    badge: str
+
+    name: str
+
+    career_goal: str | None = None
+
+    xp: int
+
+    day_streak: int
+
+    completed_levels: int
+
+    total_levels: int
+
+    applications: int
+
+
+# ============================================================
+# SCORE BREAKDOWN
+# ============================================================
+
+class ScoreBreakdownResponse(BaseModel):
+
+    total_score: int
+
+    max_score: int
+
+    career_clarity: int
+
+    career_clarity_max: int
+
+    learning_progress: int
+
+    learning_progress_max: int
+
+    profile_completeness: int
+
+    profile_completeness_max: int
+
+    consistency: int
+
+    consistency_max: int
+
+    job_readiness: int
+
+    job_readiness_max: int
