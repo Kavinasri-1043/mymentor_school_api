@@ -43,11 +43,8 @@ class Settings(BaseSettings):
     CORS_ORIGINS: str = (
         "http://localhost:3000,"
         "http://localhost:5173,"
-        "https://carrercompass.com,"
-        "https://www.carrercompass.com,"
-        "https://careercampus-bd89.onrender.com,"
-        "https://carrercompass-n2ms.onrender.com,"
-        "https://my-mentor-organization.onrender.com"
+        "https://school.carrercompass.com,"
+        
     )
 
     FRONTEND_LOCAL_URL: str = "http://localhost:3000"
@@ -57,20 +54,18 @@ class Settings(BaseSettings):
     # =========================================================
 
     FRONTEND_PRODUCTION_URLS: str = (
-        "https://carrercompass.com,"
-        "https://www.carrercompass.com,"
-        "https://careercampus-bd89.onrender.com,"
-        "https://carrercompass-n2ms.onrender.com"
+        
+        "https://school.carrercompass.com"
     )
 
     # =========================================================
     # ORGANIZATION PORTAL
     # =========================================================
 
-    ORGANIZATION_PORTAL_URL: str = (
-        "https://my-mentor-organization.onrender.com,"
-        "https://organization.carrercompass.com"
-    )
+    # ORGANIZATION_PORTAL_URL: str = (
+    #     "https://my-mentor-organization.onrender.com,"
+    #     "https://organization.carrercompass.com"
+    # )
 
     # =========================================================
     # GOOGLE OAUTH
@@ -119,7 +114,7 @@ class Settings(BaseSettings):
     # =========================================================
 
     PUBLIC_BASE_URL: str = (
-        "https://mymentor-api.onrender.com"
+        "https://school-api.carrercompass.com"
     )
 
     MAX_UPLOAD_SIZE: int = 10 * 1024 * 1024

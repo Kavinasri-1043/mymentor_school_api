@@ -325,8 +325,7 @@ async def google_login(
 
     allowed_frontends = {
         "http://localhost:3000",
-        "https://careercampus-bd89.onrender.com",
-        "https://carrercompass-n2ms.onrender.com",
+        "https://school.carrercompass.com",
     }
 
     if frontend_url not in allowed_frontends:
@@ -400,8 +399,7 @@ async def google_callback(
 
     allowed_frontends = {
         "http://localhost:3000",
-        "https://careercampus-bd89.onrender.com",
-        "https://carrercompass-n2ms.onrender.com",
+        "https://school.carrercompass.com",
     }
 
     if state not in allowed_frontends:
