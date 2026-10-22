@@ -44,7 +44,7 @@ class Settings(BaseSettings):
         "http://localhost:3000,"
         "http://localhost:5173,"
         "https://school.carrercompass.com,"
-        
+          
     )
 
     FRONTEND_LOCAL_URL: str = "http://localhost:3000"
@@ -54,7 +54,6 @@ class Settings(BaseSettings):
     # =========================================================
 
     FRONTEND_PRODUCTION_URLS: str = (
-        
         "https://school.carrercompass.com"
     )
 
@@ -114,6 +113,7 @@ class Settings(BaseSettings):
     # =========================================================
 
     PUBLIC_BASE_URL: str = (
+
         "https://school-api.carrercompass.com"
     )
 
