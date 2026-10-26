@@ -10,6 +10,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.dependencies import (
     get_current_admin,
+    get_current_user,
+    
 )
 from app.database.database import get_db
 
@@ -48,7 +50,7 @@ router = APIRouter(
 )
 async def get_categories(
     current_user: User = Depends(
-        get_current_admin
+        get_current_user
     ),
     session: AsyncSession = Depends(
         get_db
@@ -88,7 +90,7 @@ async def get_categories(
 async def get_questions(
     category_id: UUID,
     current_user: User = Depends(
-        get_current_admin
+        get_current_user
     ),
     session: AsyncSession = Depends(
         get_db
@@ -223,7 +225,7 @@ async def create_question(
 async def get_question(
     question_id: UUID,
     current_user: User = Depends(
-        get_current_admin
+        get_current_user
     ),
     session: AsyncSession = Depends(
         get_db
